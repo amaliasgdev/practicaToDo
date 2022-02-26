@@ -1,3 +1,5 @@
+const btnSave = document.querySelector('#btnSave');
+const selectPrioritySave = document.querySelector('#selectPrioritySave');
 const section = document.querySelector('#tareas');
 const inputGuardar = document.querySelector('#inputGuardar');
 const inputBuscar = document.querySelector('#inputBuscar');
@@ -12,11 +14,12 @@ printTareas(listaTareas, section);
 
 function printTareas(pLista, pSection) {
     for (let tarea of pLista) {
-        printTarea(tarea, pSection);
+        const article = printTarea(tarea);
+        pSection.appendChild(article);
     }
 }
 
-function printTarea(pTarea, pSection) {
+function printTarea(pTarea) {
     let article = document.createElement('article');
     let p = document.createElement('p');
     let button = document.createElement('button');
@@ -34,7 +37,7 @@ function printTarea(pTarea, pSection) {
     button.dataset.id = pTarea.idTarea;
     button.addEventListener('click', (event) => {
         let idTarea = event.target.dataset.id;
-        listaTareas = borrarTarea(idTarea, listaTareas);
+        listaTareas = deleteTarea(idTarea, listaTareas);
         event.target.parentNode.remove();
     });
 
@@ -42,7 +45,8 @@ function printTarea(pTarea, pSection) {
 
     article.appendChild(p);
     article.appendChild(button);
-    pSection.appendChild(article);
+
+    return article;
 }
 
 function getColor(pPrioridad) {
@@ -64,7 +68,29 @@ function getColor(pPrioridad) {
 
 }
 
-function borrarTarea(pId, pLista) {
+btnSave.addEventListener('click', saveTarea);
+
+
+function saveTarea(event) {
+    //Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
+    event.preventDefault();
+    if (checkSaveFields()) {
+        const newTarea = {
+            'idTarea': listaTareas.length,
+            'titulo': inputGuardar.value,
+            'prioridad': selectPrioritySave.value
+        };
+        listaTareas.push(newTarea);
+        printTarea(newTarea);
+        const newArticle = printTarea(newTarea);
+        section.appendChild(newArticle);
+        selectPrioritySave.selectedIndex = 0;
+        inputGuardar.reset;
+    }
+
+}
+
+function deleteTarea(pId, pLista) {
     const nuevaListaTareas = new Array();
     for (let tarea of pLista) {
         if (tarea.idTarea !== parseInt(pId)) {
@@ -72,4 +98,17 @@ function borrarTarea(pId, pLista) {
         }
     }
     return nuevaListaTareas;
+}
+
+//validacion campos entrada
+function checkSaveFields() {
+    let respuesta = true;
+    if (inputGuardar.value.length === 0) {
+        alert('Debe escribir una tarea');
+        respuesta = false;
+    } else if (selectPrioritySave.value === 'Escoge prioridad') {
+        alert('Debe escoger una prioridad');
+        respuesta = false;
+    }
+    return respuesta;
 }
