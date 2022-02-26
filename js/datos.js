@@ -19,10 +19,10 @@ listaTareas = [
 ];
 
 
-//borrar
-//añadir
+//borrar (HECHO)
+//añadir (HECHO)
 //filtrar busqueda por prioridad (URGENTE, diaria, mensual)
-//cada tarea tendrá un color asociado que se le asigna en el momento de la creacion (¿quien decide el color)
+//cada tarea tendrá un color asociado que se le asigna en el momento de la creacion (HECHO)
 
 //eventos:
 //1. change => selector

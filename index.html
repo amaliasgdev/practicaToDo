@@ -25,19 +25,22 @@
                         <option value="mensual">Mensual</option>
                         <option value="urgente">Urgente</option>
                     </select>
-                    <button id="btnSave" class="btn btn-outline-primary" type="submit">Guardar</button>
+                    <button id="btnSave" class="btn btn-outline-primary col-2" type="submit">Guardar</button>
+                    <button class="btn btn-outline-danger ms-4 col-2" type="reset">Reset</button>
                 </form>
             </div>
 
             <div class="container-fluid">
                 <form class="d-flex">
-                    <select class="form-select me-3">
+                    <select id="selectPrioritySearch" class="form-select me-3">
                         <option selected>Escoge prioridad</option>
-                        <option value="1">Diaria</option>
-                        <option value="2">Mensual</option>
-                        <option value="3">Urgente</option>
+                        <option value="diaria">Diaria</option>
+                        <option value="mensual">Mensual</option>
+                        <option value="urgente">Urgente</option>
                     </select>
                     <input id="inputBuscar" class="form-control" placeholder="Escribe tarea" input="text">
+                    <button id="btnBuscar" class="btn btn-outline-primary ms-4 col-2" type="submit">Buscar</button>
+                    <button class="btn btn-outline-danger ms-4 col-2" type="reset">Reset</button>
                 </form>
             </div>
         </nav>
@@ -59,7 +62,7 @@
 
     <footer>
         <div class="footer">
-            <p>TO-DO Copyrigth @2022 Amalia Sánchez</p>
+            <p>TO-DO Copyrigth &#169 2022 Amalia Sánchez</p>
         </div>
     </footer>
 

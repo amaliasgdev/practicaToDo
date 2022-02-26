@@ -1,5 +1,6 @@
 const btnSave = document.querySelector('#btnSave');
 const selectPrioritySave = document.querySelector('#selectPrioritySave');
+const selectPrioritySearch = document.querySelector('#selectPrioritySearch');
 const section = document.querySelector('#tareas');
 const inputGuardar = document.querySelector('#inputGuardar');
 const inputBuscar = document.querySelector('#inputBuscar');
@@ -13,6 +14,7 @@ const selectTarea = document.querySelector('#selectTarea');
 printTareas(listaTareas, section);
 
 function printTareas(pLista, pSection) {
+    section.innerHTML = '';
     for (let tarea of pLista) {
         const article = printTarea(tarea);
         pSection.appendChild(article);
@@ -70,7 +72,6 @@ function getColor(pPrioridad) {
 
 btnSave.addEventListener('click', saveTarea);
 
-
 function saveTarea(event) {
     //Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
     event.preventDefault();
@@ -100,6 +101,34 @@ function deleteTarea(pId, pLista) {
     return nuevaListaTareas;
 }
 
+
+selectPrioritySearch.addEventListener('change', (event) => {
+    let priority = event.target.value;
+    const listaFiltrada = new Array();
+    for (let tarea of listaTareas) {
+        if (tarea.prioridad === priority) {
+            listaFiltrada.push(tarea);
+        }
+    }
+    printTareas(listaFiltrada, section);
+});
+
+/* inputBuscar.addEventListener('keyup', searchTarea);
+
+function searchTarea(event) {
+    let valorBuscar = event.target.value;
+    const resultadoBusqueda = new Array();
+    if (checkSearchFields()) {
+        for (let tarea of listaTareas) {
+            if (tarea.titulo.includes(valorBuscar) && (!resultadoBusqueda.includes(tarea))) {
+                resultadoBusqueda.push(tarea);
+            }
+        }
+        listaTareas = resultadoBusqueda;
+        console.log(listaTareas);
+    }
+} */
+
 //validacion campos entrada
 function checkSaveFields() {
     let respuesta = true;
@@ -107,6 +136,19 @@ function checkSaveFields() {
         alert('Debe escribir una tarea');
         respuesta = false;
     } else if (selectPrioritySave.value === 'Escoge prioridad') {
+        alert('Debe escoger una prioridad');
+        respuesta = false;
+    }
+    return respuesta;
+}
+
+//validacion campos salida
+function checkSearchFields() {
+    let respuesta = true;
+    if (inputBuscar.value.length === 0) {
+        alert('Debe escribir una tarea');
+        respuesta = false;
+    } else if (selectPrioritySearch.value === 'Escoge prioridad') {
         alert('Debe escoger una prioridad');
         respuesta = false;
     }
