@@ -5,6 +5,7 @@ const section = document.querySelector('#tareas');
 const inputGuardar = document.querySelector('#inputGuardar');
 const inputBuscar = document.querySelector('#inputBuscar');
 const selectTarea = document.querySelector('#selectTarea');
+const btnListar = document.querySelector('#btnListar');
 
 /* <!-- <article class="container-fluid d-flex"> (od-inline-flex)
     <p class="col-8 align-self-center">Estudiar Javaescript</p>
@@ -35,7 +36,7 @@ function printTarea(pTarea) {
     button.classList.add('btn');
     button.classList.add('btn-danger');
     button.classList.add('col-4');
-    button.innerText = 'Borrar';
+    button.innerHTML = '<i class="fa-solid fa-trash-can"></i> BORRAR';
     button.dataset.id = pTarea.idTarea;
     button.addEventListener('click', (event) => {
         let idTarea = event.target.dataset.id;
@@ -67,7 +68,6 @@ function getColor(pPrioridad) {
             color = 'white';
     }
     return color;
-
 }
 
 btnSave.addEventListener('click', saveTarea);
@@ -85,8 +85,8 @@ function saveTarea(event) {
         printTarea(newTarea);
         const newArticle = printTarea(newTarea);
         section.appendChild(newArticle);
-        selectPrioritySave.selectedIndex = 0;
-        inputGuardar.reset;
+
+        limpiarCampos();
     }
 
 }
@@ -101,8 +101,9 @@ function deleteTarea(pId, pLista) {
     return nuevaListaTareas;
 }
 
+selectPrioritySearch.addEventListener('change', seachTareaPriority);
 
-selectPrioritySearch.addEventListener('change', (event) => {
+function seachTareaPriority(event) {
     let priority = event.target.value;
     const listaFiltrada = new Array();
     for (let tarea of listaTareas) {
@@ -111,23 +112,20 @@ selectPrioritySearch.addEventListener('change', (event) => {
         }
     }
     printTareas(listaFiltrada, section);
-});
+}
 
-/* inputBuscar.addEventListener('keyup', searchTarea);
+inputBuscar.addEventListener('keyup', searchTarea);
 
 function searchTarea(event) {
-    let valorBuscar = event.target.value;
+    let valorBuscar = event.target.value.toLowerCase();
     const resultadoBusqueda = new Array();
-    if (checkSearchFields()) {
-        for (let tarea of listaTareas) {
-            if (tarea.titulo.includes(valorBuscar) && (!resultadoBusqueda.includes(tarea))) {
-                resultadoBusqueda.push(tarea);
-            }
+    for (let tarea of listaTareas) {
+        if (tarea.titulo.toLowerCase().includes(valorBuscar) && (!resultadoBusqueda.includes(tarea))) {
+            resultadoBusqueda.push(tarea);
         }
-        listaTareas = resultadoBusqueda;
-        console.log(listaTareas);
     }
-} */
+    printTareas(resultadoBusqueda, section);
+}
 
 //validacion campos entrada
 function checkSaveFields() {
@@ -142,15 +140,18 @@ function checkSaveFields() {
     return respuesta;
 }
 
-//validacion campos salida
-function checkSearchFields() {
-    let respuesta = true;
-    if (inputBuscar.value.length === 0) {
-        alert('Debe escribir una tarea');
-        respuesta = false;
-    } else if (selectPrioritySearch.value === 'Escoge prioridad') {
-        alert('Debe escoger una prioridad');
-        respuesta = false;
-    }
-    return respuesta;
+//boton reset / listar 
+btnListar.addEventListener('click', () => {
+    printTareas(listaTareas, section);
+    limpiarCampos();
+})
+
+//limpiar campos
+function limpiarCampos() {
+    selectPrioritySave.selectedIndex = 0;
+    selectPrioritySearch.selectedIndex = 0;
+    inputGuardar.value = '';
+    inputBuscar.value = '';
 }
+
+
