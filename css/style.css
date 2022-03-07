@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
+
 header {
     width: 100%;
     position: fixed;
@@ -12,7 +13,6 @@ nav.navbar {
 
 h1 {
     color: white;
-    margin: 0;
     font-family: 'Amatic SC', cursive;
     font-size: 50px;
 }
@@ -21,12 +21,27 @@ nav>div:first-child {
     width: 100%;
     height: 8vh;
     background-color: rgb(58, 57, 57);
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 nav>div:nth-child(2) {
     height: 8vh;
     background-color: rgb(58, 57, 57);
+    width: 100%;
+    display: flex;
+    padding-left: 0.75rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#flex1 {
+    width: 50%;
+    padding: 0.2rem;
+}
+
+#flex2 {
+    width: 50%;
+    padding: 0.2rem;
 }
 
 nav>div:nth-child(3) {
@@ -35,8 +50,8 @@ nav>div:nth-child(3) {
 }
 
 .d-flex>figure img {
-    margin-top: 20px;
-    width: 80px;
+    padding-top: 10px;
+    width: 70px;
     margin: 0;
 }
 
@@ -60,6 +75,9 @@ main {
 }
 
 section#tareas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     padding: 0.5rem;
 }
 
@@ -70,7 +88,8 @@ p {
 article {
     border-radius: 5px;
     padding: 5px;
-    margin-bottom: 0.5rem;
+    margin: 5px;
+    width: calc(50% - 10px) !important;
 }
 
 article:hover {
@@ -90,4 +109,42 @@ article:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* .urgente {
+    background-color: lightcoral;
+}
+.diaria {
+    background-color: lightblue;
+}
+.mensual {
+    background-color: lightgreen;
+} */
+
+@media(max-width:945px) {
+    body {
+        position: relative;
+        padding-top: 32vh;
+    }
+
+    nav>div:nth-child(2) {
+        height: 16vh;
+        flex-direction: column;
+    }
+
+    #flex1 {
+        width: 100%;
+    }
+
+    #flex2 {
+        width: 100%;
+    }
+}
+
+@media(max-width:720px) {
+    article {
+        width: 100% !important;
+    }
+
+
 }

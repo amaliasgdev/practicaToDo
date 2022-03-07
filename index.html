@@ -19,27 +19,34 @@
 
     <header>
         <nav class="navbar navbar-light bg-light">
+            <!--titulo-->
             <div class="d-flex titulo">
                 <figure>
                     <img src="./img/todo.png" alt="imagen-tareas">
                 </figure>
                 <h1>LISTA DE TAREAS ~ TO-DO</h1>
             </div>
-            <div class="container-fluid">
-                <form class="d-flex">
-                    <input id="inputGuardar" class="form-control me-4" placeholder="Escribe tarea" input="text">
-                    <select id="selectPrioritySave" class="form-select me-4">
-                        <option selected>Escoge prioridad</option>
-                        <option value="diaria">Diaria</option>
-                        <option value="mensual">Mensual</option>
-                        <option value="urgente">URGENTE</option>
-                    </select>
+            <!--introducir nuevas tareas-->
+            <div>
+                <div id="flex1">
+                    <form class="d-flex">
+                        <input id="inputGuardar" class="form-control me-4" placeholder="Escribe tarea" input="text">
+                        <select id="selectPrioritySave" class="form-select me-4">
+                            <option selected>Escoge prioridad</option>
+                            <option value="diaria">Diaria</option>
+                            <option value="mensual">Mensual</option>
+                            <option value="urgente">URGENTE</option>
+                        </select>
+                </div>
+                <div id="flex2">
                     <button id="btnSave" class="btn btn-primary col-3 me-4" type="submit"><i
                             class="fa-solid fa-floppy-disk"></i> GUARDAR</button>
-                    <button id="btnListar" class="btn btn-outline-success" type="reset">Listar/Reset</button>
-                </form>
+                    <button id="btnListar" class="btn btn-outline-success col-3" type="reset"><i
+                            class="fa-solid fa-list"></i> RESET</button>
+                    </form>
+                </div>
             </div>
-
+            <!--filtrar tareas-->
             <div class="container-fluid">
                 <form class="d-flex">
                     <select id="selectPrioritySearch" class="form-select me-4">
@@ -73,8 +80,6 @@
             <p>TO-DO Copyrigth &#169 2022 Amalia Sánchez</p>
         </div>
     </footer>
-
-
 
 
 

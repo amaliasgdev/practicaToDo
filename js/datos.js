@@ -15,6 +15,11 @@ listaTareas = [
         'idTarea': 2,
         'titulo': 'Salir a comer',
         'prioridad': 'mensual'
+    },
+    {
+        'idTarea': 3,
+        'titulo': 'Sobar al gato',
+        'prioridad': 'diaria'
     }
 ];
 

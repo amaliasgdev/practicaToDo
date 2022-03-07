@@ -14,11 +14,14 @@ const btnListar = document.querySelector('#btnListar');
 
 printTareas(listaTareas, section);
 
+
 function printTareas(pLista, pSection) {
     section.innerHTML = '';
     for (let tarea of pLista) {
         const article = printTarea(tarea);
         pSection.appendChild(article);
+        //guardar los objetos que ya estan en en array en el localstorage
+        localStorage.setItem(tarea.idTarea, JSON.stringify(tarea));
     }
 }
 
@@ -27,9 +30,9 @@ function printTarea(pTarea) {
     let p = document.createElement('p');
     let button = document.createElement('button');
 
-    article.classList.add('container-fluid');
+    /* article.classList.add(pTarea.prioridad); */
+    article.style.backgroundColor = getColorPriority(pTarea.prioridad);
     article.classList.add('d-flex');
-    article.style.backgroundColor = getColor(pTarea.prioridad);
     p.classList.add('col-8');
     p.classList.add('align-self-center');
     button.type = 'button';
@@ -52,20 +55,18 @@ function printTarea(pTarea) {
     return article;
 }
 
-function getColor(pPrioridad) {
+function getColorPriority(pPriority) {
     let color = '';
-    switch (pPrioridad) {
-        case 'diaria':
-            color = 'lightblue';
+    switch (pPriority) {
+        case 'urgente':
+            color = 'lightcoral';
             break;
         case 'mensual':
             color = 'lightgreen';
             break;
-        case 'urgente':
-            color = 'lightsalmon';
+        case 'diaria':
+            color = 'lightblue';
             break;
-        default:
-            color = 'white';
     }
     return color;
 }
@@ -73,7 +74,8 @@ function getColor(pPrioridad) {
 btnSave.addEventListener('click', saveTarea);
 
 function saveTarea(event) {
-    //Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
+    //evita que envie el resultado del formulario al servidor lo que conllevaría una recarga de la pagina
+    //previene el comportamiento por defecto del navegador del evento submit
     event.preventDefault();
     if (checkSaveFields()) {
         const newTarea = {
@@ -81,8 +83,9 @@ function saveTarea(event) {
             'titulo': inputGuardar.value,
             'prioridad': selectPrioritySave.value
         };
+        localStorage.setItem(`${newTarea.idTarea}`, JSON.stringify(newTarea));
         listaTareas.push(newTarea);
-        printTarea(newTarea);
+
         const newArticle = printTarea(newTarea);
         section.appendChild(newArticle);
 
@@ -114,7 +117,8 @@ function seachTareaPriority(event) {
     printTareas(listaFiltrada, section);
 }
 
-inputBuscar.addEventListener('keyup', searchTarea);
+//tambien funciona 'keyup' pero para input mejor usar 'input'
+inputBuscar.addEventListener('input', searchTarea);
 
 function searchTarea(event) {
     let valorBuscar = event.target.value.toLowerCase();
